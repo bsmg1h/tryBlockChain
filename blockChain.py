@@ -5,12 +5,13 @@
 import hashlib as hasher
 import datetime as date
 
+
 class Block:
-    def __init__(self, index, timeStamp, data, previousHash ):
+    def __init__(self, index, timeStamp, data, previousHash):
         '''
 
         :param index: the index of this block in the BlockChain system
-        :param timestanp: the time that this block created
+        :param timeStamp: the time that this block created
         :param data: the data that this block stored
         :param previousHash: the hash value of the last block
         '''
@@ -37,8 +38,7 @@ class Block:
 
         :return: a str object, the message from this block
         '''
-        return("Hey! I'm block" + str(self.index))
-
+        return ("Hey! I'm block" + str(self.index))
 
 
 class Chain:
@@ -107,18 +107,21 @@ class Chain:
 
             if block.hashBlock() != block.hash:
                 print(f"Ooops! the data in {self.name} system has been changed!")
-                print(f"The hash value cannot match the data in #{block.index} block!")
+                print(f"The hash value cannot match the data in #{block.index} block!\n")
                 return False
 
             if block.index > 0:
-                lastBlock = self.blockChain[block.index-1]
+                lastBlock = self.blockChain[block.index - 1]
                 if lastBlock.hash != block.previousHash:
                     print(f"Ooops! the data in {self.name} system has been changed.")
-                    print(f"The previousHash value in #{block.index} block is different from the hash value in the last block!!")
+                    print(
+                        f"The previousHash value in #{block.index} block is different "
+                        f"from the hash value in the last block!!\n")
                     return False
 
-        print(f"The {self.name} BlockChain system is legal. The data is safe.")
+        print(f"The {self.name} BlockChain system is legal. The data is safe.\n")
         return True
+
 
 if __name__ == '__main__':
 
@@ -129,8 +132,10 @@ if __name__ == '__main__':
 
     zzChain.isLegal()
 
-
     zzChain.blockChain[5].data = 2
     zzChain.isLegal()
-    
+
+    zzChain.blockChain[5].hash = zzChain.blockChain[5].hashBlock()
+    zzChain.isLegal()
+
     pass
